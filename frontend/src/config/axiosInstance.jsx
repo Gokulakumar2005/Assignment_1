@@ -6,7 +6,10 @@
 // export default axiosInstance;
 
 import axios from "axios";
-const apiUrl = (import.meta.env.VITE_API_URL || "").replace(/['"]+/g, '');
+const apiUrl = (import.meta.env.VITE_API_URL || "")
+  .replace(/['"]+/g, '')
+  .replace(/;\s*$/, '')
+  .trim();
 const axiosInstance = axios.create({
   baseURL: apiUrl.startsWith("http") ? apiUrl : `https://${apiUrl}`
 });
