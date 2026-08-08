@@ -1,6 +1,13 @@
 
+// import axios from "axios";
+// const axiosInstance = axios.create({
+//   baseURL: "http://localhost:1972/"
+// });
+// export default axiosInstance;
+
 import axios from "axios";
+const apiUrl = (import.meta.env.VITE_API_URL || "").replace(/['"]+/g, '');
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:1972/"
+  baseURL: apiUrl.startsWith("http") ? apiUrl : `https://${apiUrl}`
 });
 export default axiosInstance;
