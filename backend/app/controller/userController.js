@@ -5,21 +5,23 @@ import jwt from "jsonwebtoken";
 const UserCtrl = {};
 
 UserCtrl.Create = async (req, res) => {
-    const body=req.body;
     try {
-        const UserPresentWithEmail = await UserModel.findOne({ email: body.email });
+        const { userName, email, password } = req.body;
+        const UserPresentWithEmail = await UserModel.findOne({ email });
         if (UserPresentWithEmail) {
             return res.status(400).json({ error: "email already present" })
         }
         else {
-            const user = new UserModel(body);
-            const salt = await bcryptjs.genSalt();
-            const hashpassword = await bcryptjs.hash(body.password, salt);
-            user.password = hashpassword;
             const usersCount = await UserModel.countDocuments();
-            if (usersCount == 0) {
-                user.role = 'admin'
-            }
+            const user = new UserModel({
+                userName,
+                email,
+                password,
+                role: usersCount === 0 ? "admin" : "saleExcutive"
+            });
+            const salt = await bcryptjs.genSalt();
+            const hashpassword = await bcryptjs.hash(password, salt);
+            user.password = hashpassword;
             await user.save();
 
             res.json(user);

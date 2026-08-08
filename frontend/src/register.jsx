@@ -11,7 +11,6 @@ export default function Register() {
         userName: "",
         email: "",
         password: "",
-        role: "saleExcutive",
     });
 
     const handleChange = (e) => {
@@ -42,11 +41,6 @@ export default function Register() {
 
         if (!formData.password || formData.password.length < 6) {
             toast.error("Password must be at least 6 characters long");
-            return;
-        }
-
-        if (!formData.role) {
-            toast.error("Please select a role");
             return;
         }
 
@@ -89,19 +83,6 @@ export default function Register() {
                             className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500"
                             required
                         />
-                    </div>
-
-                    <div>
-                        <label className="block mb-2 font-medium">Role</label>
-                        <select
-                            name="role"
-                            value={formData.role}
-                            onChange={handleChange}
-                            className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-slate-500"
-                        >
-                            <option value="saleExcutive">Sales Executive</option>
-                            <option value="admin">Admin</option>
-                        </select>
                     </div>
 
                     <div>
