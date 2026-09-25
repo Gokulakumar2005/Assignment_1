@@ -31,45 +31,58 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-8 border border-slate-200">
-        <h2 className="text-3xl font-bold text-center text-slate-800">
-          Login
-        </h2>
-
-        <p className="text-center text-gray-500 mt-2 mb-6">
-          Welcome back! Sign in to continue.
-        </p>
+    <div className="w-full flex-1 flex items-center justify-center py-6 px-4">
+      <div className="w-full max-w-md bg-white shadow-xs rounded-2xl p-7 sm:p-8 border border-slate-200/80">
+        <div className="text-center mb-6">
+          <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-3 border border-indigo-100/60 shadow-xs">
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+            </svg>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+            Sign In
+          </h2>
+          <p className="text-slate-500 text-sm mt-1">
+            Welcome back! Access your configuration portal.
+          </p>
+        </div>
 
         {Error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-center">
-            {Error}
+          <div className="bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 rounded-xl mb-5 text-sm flex items-start gap-2.5">
+            <svg className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <span>{Error}</span>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block mb-2 font-medium">Email</label>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
+              Email Address
+            </label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Enter your email"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500"
+              placeholder="name@company.com"
+              className="w-full border border-slate-200 rounded-xl px-4 py-2.5 sm:py-3 text-slate-800 placeholder-slate-400 text-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
               required
             />
           </div>
 
           <div>
-            <label className="block mb-2 font-medium">Password</label>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
+              Password
+            </label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Enter your password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500"
+              placeholder="••••••••"
+              className="w-full border border-slate-200 rounded-xl px-4 py-2.5 sm:py-3 text-slate-800 placeholder-slate-400 text-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
               required
             />
           </div>
@@ -77,18 +90,25 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-slate-800 text-white py-3 rounded-lg hover:bg-slate-900 transition duration-200 cursor-pointer disabled:opacity-50"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold py-3 rounded-xl transition duration-150 cursor-pointer shadow-xs disabled:opacity-50 disabled:cursor-not-allowed text-sm flex items-center justify-center gap-2 mt-2"
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span>Logging in...</span>
+              </>
+            ) : (
+              "Sign In"
+            )}
           </button>
         </form>
 
-        <p className="text-center mt-6 text-gray-600">
+        <p className="text-center mt-6 text-sm text-slate-500">
           Don't have an account?{" "}
           <button
             type="button"
             onClick={() => navigate("/register")}
-            className="text-slate-800 font-semibold hover:underline cursor-pointer"
+            className="text-indigo-600 hover:text-indigo-700 font-semibold cursor-pointer transition ml-0.5"
           >
             Register
           </button>

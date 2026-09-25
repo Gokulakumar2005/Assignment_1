@@ -8,19 +8,19 @@ export default function PriceHistory({ history }) {
   }
 
   return (
-    <div className="text-xs text-gray-500 mt-2 max-h-24 overflow-y-auto bg-slate-50 p-2 rounded-lg border border-slate-100 space-y-1 w-44">
+    <div className="text-xs text-slate-500 mt-2 max-h-28 overflow-y-auto bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 space-y-1.5 w-full min-w-[180px]">
       <span className="font-bold block text-[10px] uppercase text-slate-400 tracking-wider mb-1">
-        Price History:
+        Price History Log
       </span>
       {[...history].reverse().map((h, index) => (
         <div
           key={index}
-          className="flex justify-between gap-2 border-b border-dashed border-slate-200 pb-1 last:border-0 last:pb-0 text-[11px]"
+          className="flex justify-between items-center gap-2 border-b border-dashed border-slate-200/80 pb-1 last:border-0 last:pb-0 text-xs"
         >
-          <span className="font-semibold text-slate-700">
-            {Number(h.price).toLocaleString("en-IN")}
+          <span className="font-bold text-slate-800 tabular-nums">
+            ₹{Number(h.price).toLocaleString("en-IN")}
           </span>
-          <span className="text-[10px] text-slate-400">
+          <span className="text-[10px] text-slate-400 tabular-nums">
             {new Date(h.updatedAt).toLocaleDateString("en-IN", {
               month: "short",
               day: "numeric",

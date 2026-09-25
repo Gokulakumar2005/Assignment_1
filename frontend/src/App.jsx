@@ -33,9 +33,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="flex min-h-screen bg-slate-50 w-full">
+      <div className="flex flex-col md:flex-row min-h-screen bg-slate-50 w-full">
         <Navbar />
-        <main className="flex-grow p-8 flex items-center justify-center">
+        <main className="flex-1 flex flex-col items-center justify-start w-full min-w-0 p-4 sm:p-6 lg:p-8 overflow-y-auto">
           <Routes>
             <Route path="/" element={<Navigate to={isLoggedIn ? "/dashboard" : "/login"} />} />
             <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />} />

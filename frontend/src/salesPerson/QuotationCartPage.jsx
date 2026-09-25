@@ -62,100 +62,147 @@ export default function QuotationCartPage() {
   };
 
   return (
-    <div className="w-full max-w-3xl bg-white text-slate-800 shadow-lg rounded-xl p-8 mx-auto mt-6 border border-slate-200">
-      <div className="border-b border-slate-200 pb-4 mb-6 flex justify-between items-center">
-        <div>
-          <h2 className="text-2xl font-bold text-slate-800">Build Configuration</h2>
-        </div>
-        
-      </div>
-
-      <form onSubmit={handleQuotationSubmit} className="space-y-6">
-        <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
-            Client Name
-          </label>
-          <input
-            type="text"
-            value={clientName}
-            onChange={(e) => setClientName(e.target.value)}
-            placeholder="Enter client name"
-            className="w-full border border-slate-300 rounded-lg px-4 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-slate-500 font-medium text-sm text-slate-800 placeholder-slate-400"
-            required
-          />
+    <div className="w-full max-w-3xl mx-auto py-2">
+      <div className="bg-white text-slate-900 shadow-xs rounded-2xl p-6 sm:p-8 border border-slate-200/80">
+        <div className="border-b border-slate-200/80 pb-5 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                Build Configuration & Quotation
+              </h2>
+              <p className="text-slate-500 text-xs sm:text-sm">
+                Assemble hardware specifications and generate a formal client proposal.
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div className="space-y-3">
-          <span className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
-            Selected Specs List
-          </span>
+        <form onSubmit={handleQuotationSubmit} className="space-y-6">
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
+              Client or Organization Name
+            </label>
+            <input
+              type="text"
+              value={clientName}
+              onChange={(e) => setClientName(e.target.value)}
+              placeholder="e.g. Acme Technologies Inc."
+              className="w-full border border-slate-200 rounded-xl px-4 py-2.5 sm:py-3 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 font-medium text-sm text-slate-800 placeholder-slate-400 transition"
+              required
+            />
+          </div>
 
-          {cart.length > 0 ? (
-            <div className="space-y-2.5 pr-1 max-h-[350px] overflow-y-auto scrollbar-thin">
-              {cart.map((item) => (
-                <div
-                  key={item._id}
-                  className="flex justify-between items-center bg-slate-50 border border-slate-200 p-4 rounded-xl hover:border-slate-300 transition"
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="block text-xs font-semibold uppercase tracking-wider text-slate-600">
+                Selected Components ({cart.length})
+              </span>
+              {cart.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => navigate("/sales/components")}
+                  className="text-xs font-medium text-indigo-600 hover:text-indigo-700 transition cursor-pointer"
                 >
-                  <div>
-                    <span className="block text-[10px] text-slate-500 font-bold uppercase tracking-wider">
-                      {item.category}
-                    </span>
-                    <span className="block font-semibold text-sm text-slate-800 mt-0.5">
-                      {item.name}
-                    </span>
-                    <span className="block text-xs text-slate-500 truncate max-w-md font-normal mt-0.5">
-                      {item.description}
-                    </span>
+                  + Add More Parts
+                </button>
+              )}
+            </div>
+
+            {cart.length > 0 ? (
+              <div className="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
+                {cart.map((item) => (
+                  <div
+                    key={item._id}
+                    className="flex justify-between items-center bg-slate-50 border border-slate-200/80 p-3.5 sm:p-4 rounded-xl hover:border-slate-300 transition duration-150 gap-3"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <span className="block text-[10px] text-indigo-600 font-bold uppercase tracking-wider leading-none">
+                        {item.category}
+                      </span>
+                      <span className="block font-semibold text-sm text-slate-900 mt-1 truncate">
+                        {item.name}
+                      </span>
+                      <span className="block text-xs text-slate-500 truncate max-w-md font-normal mt-0.5">
+                        {item.description}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3 shrink-0">
+                      <span className="font-bold text-sm text-slate-900 tabular-nums">
+                        ₹{Number(item.currentPrice).toLocaleString("en-IN")}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => removeFromCart(item._id)}
+                        className="inline-flex items-center gap-1 text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200/80 font-medium text-xs px-2.5 py-1 rounded-lg transition duration-150 cursor-pointer shadow-2xs"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-4 shrink-0">
-                    <span className="font-bold text-sm text-slate-900">
-                      ₹{Number(item.currentPrice).toLocaleString("en-IN")}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => removeFromCart(item._id)}
-                      className="text-red-600 hover:text-red-700 font-semibold text-xs bg-white hover:bg-slate-50 px-2.5 py-1 rounded border border-slate-250 transition cursor-pointer"
-                    >
-                      Remove
-                    </button>
-                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12 px-4 border border-dashed border-slate-200 rounded-2xl bg-slate-50/50">
+                <div className="w-10 h-10 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-2">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                  </svg>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12 border border-dashed border-slate-200 rounded-xl text-slate-400 font-medium text-sm">
-              Your configurations cart is empty.
-            </div>
-          )}
-        </div>
-
-        <div className="border-t border-slate-200 pt-6 mt-6">
-          <div className="flex justify-between items-center text-base font-bold mb-6">
-            <span className="text-slate-500">Auto Calculated Total</span>
-            <span className="text-2xl text-slate-900 font-black">
-              ₹{cartTotal.toLocaleString("en-IN")}
-            </span>
+                <p className="text-slate-600 font-medium text-sm">Your configuration cart is empty</p>
+                <p className="text-slate-400 text-xs mt-0.5 mb-3">Add hardware parts from the catalog to build a quotation.</p>
+                <button
+                  type="button"
+                  onClick={() => navigate("/sales/components")}
+                  className="inline-flex items-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-lg transition cursor-pointer shadow-2xs"
+                >
+                  Browse Component Catalog
+                </button>
+              </div>
+            )}
           </div>
 
-          <div className="flex gap-4">
-            <button
-              type="button"
-              onClick={() => navigate("/sales/components")}
-              className="flex-1 bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 font-semibold py-2.5 rounded-lg text-center text-sm transition cursor-pointer"
-            >
-              Back to Catalog
-            </button>
-            <button
-              type="submit"
-              disabled={loading || cart.length === 0}
-              className="flex-1 bg-slate-800 hover:bg-slate-900 text-white font-bold py-2.5 rounded-lg transition disabled:opacity-50 disabled:hover:bg-slate-800 cursor-pointer shadow-sm text-center text-sm"
-            >
-              {loading ? "Saving Configuration..." : "Submit Configuration"}
-            </button>
+          <div className="border-t border-slate-200/80 pt-5 mt-6">
+            <div className="bg-indigo-50/70 border border-indigo-100/80 rounded-xl p-4 flex justify-between items-center mb-6">
+              <div>
+                <span className="block text-[11px] font-bold uppercase tracking-wider text-indigo-500">Auto Calculated Total</span>
+                <span className="text-xs text-slate-500">Includes all selected specification parts</span>
+              </div>
+              <span className="text-2xl font-black text-indigo-700 tabular-nums">
+                ₹{cartTotal.toLocaleString("en-IN")}
+              </span>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                type="button"
+                onClick={() => navigate("/sales/components")}
+                className="flex-1 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold py-3 px-4 rounded-xl text-center text-sm transition duration-150 cursor-pointer shadow-xs"
+              >
+                Back to Catalog
+              </button>
+              <button
+                type="submit"
+                disabled={loading || cart.length === 0}
+                className="flex-1 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold py-3 px-4 rounded-xl transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-xs text-center text-sm flex items-center justify-center gap-2"
+              >
+                {loading ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Saving Configuration...</span>
+                  </>
+                ) : (
+                  "Submit Configuration"
+                )}
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }
