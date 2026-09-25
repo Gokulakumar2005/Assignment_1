@@ -49,13 +49,25 @@ export default function QuotationCart({
                   key={item._id}
                   className="flex justify-between items-center bg-slate-800/70 border border-slate-800 p-3 rounded-xl hover:border-slate-700 transition gap-2"
                 >
-                  <div className="min-w-0 flex-1">
-                    <span className="block text-[10px] text-indigo-400 font-extrabold uppercase tracking-wide leading-none">
-                      {item.category}
-                    </span>
-                    <span className="block font-medium text-sm text-slate-200 truncate mt-0.5">
-                      {item.name}
-                    </span>
+                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                    {item.image ? (
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-9 h-9 object-cover rounded-lg border border-slate-700 bg-slate-800 shrink-0"
+                        onError={(e) => {
+                          e.target.style.display = "none";
+                        }}
+                      />
+                    ) : null}
+                    <div className="min-w-0 flex-1">
+                      <span className="block text-[10px] text-indigo-400 font-extrabold uppercase tracking-wide leading-none">
+                        {item.category}
+                      </span>
+                      <span className="block font-medium text-sm text-slate-200 truncate mt-0.5">
+                        {item.name}
+                      </span>
+                    </div>
                   </div>
                   <div className="flex items-center gap-3 shrink-0">
                     <span className="font-bold text-sm text-white tabular-nums">

@@ -168,8 +168,28 @@ export default function ShowComponentsForSales() {
                           {paginatedItems.map((component) => (
                             <tr key={component._id} className="hover:bg-slate-50/80 transition-colors">
                               <td className="px-5 py-3.5 font-semibold text-slate-900 text-sm">
-                                <div>{component.name}</div>
-                                <div className="text-xs text-slate-400 font-normal mt-0.5 max-w-md">{component.description}</div>
+                                <div className="flex items-center gap-3">
+                                  {component.image ? (
+                                    <img
+                                      src={component.image}
+                                      alt={component.name}
+                                      className="w-11 h-11 object-cover rounded-lg border border-slate-200 bg-white shrink-0 shadow-2xs"
+                                      onError={(e) => {
+                                        e.target.style.display = "none";
+                                      }}
+                                    />
+                                  ) : (
+                                    <div className="w-11 h-11 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0 text-slate-400">
+                                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                      </svg>
+                                    </div>
+                                  )}
+                                  <div className="min-w-0">
+                                    <div className="truncate font-semibold text-slate-900">{component.name}</div>
+                                    <div className="text-xs text-slate-400 font-normal mt-0.5 line-clamp-1 max-w-md">{component.description}</div>
+                                  </div>
+                                </div>
                               </td>
                               <td className="px-5 py-3.5 font-bold text-slate-900 text-sm whitespace-nowrap tabular-nums">
                                 ₹{Number(component.currentPrice).toLocaleString("en-IN")}
