@@ -6,7 +6,8 @@ const UserCtrl = {};
 
 UserCtrl.Create = async (req, res) => {
     try {
-        const { userName, email, password } = req.body;
+        const userName = req.body.userName || req.body.username;
+        const { email, password } = req.body;
         const UserPresentWithEmail = await UserModel.findOne({ email });
         if (UserPresentWithEmail) {
             return res.status(400).json({ error: "email already present" })

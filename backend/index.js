@@ -10,10 +10,15 @@ import { authenticateUser } from './app/middlewares/auth.js';
 import { authorizeUser } from "./app/middlewares/authorize.js";
 
 const app = express();
-const port = process.env.port || 1972;
+const port = process.env.PORT || process.env.port || 1972;
 ConfigureDB();
 app.use(cors());
 app.use(express.json());
+
+// Health check endpoint for cloud hosting platforms (Render, Railway, etc.)
+app.get("/", (req, res) => {
+    res.json({ status: "healthy", message: "Laptop Configuration API is running" });
+});
 
 app.post("/user/register", UserCtrl.Create);
 app.post("/user/login", UserCtrl.login);

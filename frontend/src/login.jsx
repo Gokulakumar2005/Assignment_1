@@ -31,19 +31,19 @@ export default function Login() {
   };
 
   return (
-    <div className="w-full flex-1 flex items-center justify-center py-6 px-4">
-      <div className="w-full max-w-md bg-white shadow-xs rounded-2xl p-7 sm:p-8 border border-slate-200/80">
+    <div className="w-full flex-1 flex items-center justify-center min-h-[calc(100vh-5rem)] py-8 px-4">
+      <div className="w-full max-w-md bg-white shadow-xs rounded-2xl p-7 sm:p-8 border border-slate-200/80 my-auto">
         <div className="text-center mb-6">
           <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-3 border border-indigo-100/60 shadow-xs">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
             </svg>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
-            Sign In
+          <h2 className="text-3xl font-bold text-slate-800 tracking-tight">
+            Login
           </h2>
           <p className="text-slate-500 text-sm mt-1">
-            Welcome back! Access your configuration portal.
+            Welcome back! Sign in to continue.
           </p>
         </div>
 
@@ -59,14 +59,14 @@ export default function Login() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
-              Email Address
+              Email
             </label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="name@company.com"
+              placeholder="Enter your email"
               className="w-full border border-slate-200 rounded-xl px-4 py-2.5 sm:py-3 text-slate-800 placeholder-slate-400 text-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
               required
             />
@@ -81,7 +81,7 @@ export default function Login() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="••••••••"
+              placeholder="Enter your password"
               className="w-full border border-slate-200 rounded-xl px-4 py-2.5 sm:py-3 text-slate-800 placeholder-slate-400 text-sm transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
               required
             />
@@ -98,7 +98,7 @@ export default function Login() {
                 <span>Logging in...</span>
               </>
             ) : (
-              "Sign In"
+              "Login"
             )}
           </button>
         </form>
